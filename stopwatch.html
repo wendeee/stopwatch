@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="time">00:00:00</div>
+        <div class="controller">
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        var ms=0 ,s =0, min=0;
+        var time = document.querySelector('.time');
+        var counter;
+        var start = document.querySelector('.start');
+        var stop = document.querySelector('.stop');
+        var reset = document.querySelector('.reset')
+        start.addEventListener('click', function(){
+            if (!counter){
+                counter = setInterval(run, 10);
+                function run(){
+                time.textContent = min + ":" + s +":" + ms;
+                ms++;
+
+                if(ms==100){
+                    ms = 0;
+                    s++;
+                    
+                }
+                if (s==60){
+                    s = 0;
+                    min++
+                }
+            }
+            }
+           
+        })
+        
+        stop.addEventListener('click', function(){
+            clearInterval(counter);
+            counter = false;
+        })
+
+        reset.addEventListener('click', function(){
+            clearInterval(counter);
+            counter = false;
+            min = 0, s = 0, ms = 0;
+            // time.textContent = '00:00:00';
+            min = String(min).padStart(2, "0");
+            s = String(s).padStart(2, "0");
+            ms = String(ms).padStart(2, "0");
+            time.textContent = min + ":" + s + ":" + ms;
+
+        })
+
+    </script>
+</body>
+</html>
